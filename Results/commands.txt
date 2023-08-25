@@ -1,0 +1,179 @@
+
+
+
+
+
+
+cp ../../../BreastCancerNSGA2_V1/log/settings.ini .
+cp ../../../BreastCancerNSGA2_V*/log/fold_*/best_* .
+
+
+
+
+
+make clean; make
+
+./GEGCC
+
+
+cp -r ../../BreastCancerNSGA2_V*/log/* .
+
+
+for a in 2 3 4 5; do cp ../BreastCancerNSGA2_V1/settings.ini ../BreastCancerNSGA2_V$a/; done
+for a in 1 2 3 4 5; do cp ../BreastCancerNSGA2_V$a/settings.ini ../BreastCancerNSGA2_V$a/log/; done
+for a in 6 7 8 9 10; do cp ../BreastCancer_NSGA2_V$a/settings.ini ../BreastCancer_NSGA2_V$a/log/; done
+
+
+for a in 1 2 3; do cp BreastCancerNSGA2_cm_V$a/settings.ini BreastCancerNSGA2_cm_V$a/log/; done
+
+
+
+cp -vr ~/vol-1/cm/BreastCancerNSGA2_cm_V1/log/* .
+
+
+
+583	cp -vr ~/vol-1/cm/BreastCancerNSGA2_cm_V1/log/* .
+872	cp -vr ~/vol-1/cm/BreastCancerNSGA2_cm_V2/log/* .
+18571	cp -vr ~/vol-1/cm/BreastCancerNSGA2_cm_V3/log/* .
+
+
+
+10 100 1000 10000 10100 11100 558 4880 6785 10300
+
+for a in 10 100 1000 10000 10100 11100 558 4880 6785 10300; do mkdir mlo_cm_p1000_g100_s$a; done
+
+for i in $(seq 1 10); do echo $i; cp -v ~/vol-1/mlo_cm/BreastCancerNSGA2_mlo_cm_V$i/settings.ini ~/vol-1/mlo_cm/BreastCancerNSGA2_mlo_cm_V$i/log/; done
+
+counter=1; for a in 10 100 1000 10000 10100 11100 558 4880 6785 10300; do cp -rv ~/vol-1/mlo_cm/BreastCancerNSGA2_mlo_cm_V$counter/log/* mlo_cm_p1000_g100_s$a; counter=$((counter+1)); done
+
+
+
+rsync -avh <source> <destination>
+
+cd Results/cc_cm; for i in *; do rsync -avh $i/fold_*/best_* $i/settings.ini ../../sync/results/cc_cm/$i/; echo; done; cd ../..
+
+
+
+
+cd Results; for j in *; dp echo $j; done
+
+cd Results; 
+for j in *_*; 
+	do cd j; 
+	echo j;
+	for i in *; 
+		do echo i; 
+		echo rsync -avh $i/fold_*/best_* $i/settings.ini ../../sync/results/$j/$i/; 
+	done; 
+	cd ..; 
+done; 
+cd ..
+
+
+SYNC RESULTS ** run outside Results
+cd Results; for j in *_*; do cd $j; echo $j; for i in *; do echo $i; rsync -avh $i/fold_*/best_* $i/settings.ini ../../sync/results/$j/$i/; done; cd ..; done; cd ..
+
+
+for i in BreastCancerNSGA2_mlo_cm_V*/settings.ini; do echo $i; cat $i | grep RNGSeed; done 
+
+
+for a in 10000 10100 11100 558 4880 6785 10300 55600 88350; do mkdir cc_cm_p1000_g100_s$a; done
+
+for a in 55600 88350 583 872 18571 13248 49873 94652 654832 76428; do mkdir mlo_cm_p1000_g100_s$a; done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+counter=1; for a in 10 100 1000 10000 10100 11100 558 4880 6785 10300 55600 88350 583 872 18571; do echo $count - $a; mkdir -p Results/mlo_dm/mlo_dm_p1000_g100_s$a; mv BreastCancerNSGA2_mlo_dm_V$counter/log/* BreastCancerNSGA2_mlo_dm_V$counter/settings.ini Results/mlo_dm/mlo_dm_p1000_g100_s$a; counter=$((counter+1)); done
+
+
+
+counter=1; for a in 10 100 1000 10000 10100 11100 558 4880 6785 10300 55600 88350 583 872 18571; do cp BreastCancerNSGA2_mlo_dm_V$counter/settings.ini Results/mlo_dm/mlo_dm_p1000_g100_s$a; counter=$((counter+1)); done
+
+
+
+
+
+
+
+
+for i in BreastCancerNSGA2_mlo_cm_V*/settings.ini; do echo $i; cat $i | grep RNGSeed; done 
+
+
+***New
+
+for i in BreastCancerNSGA2_cc_dm_V*/settings.ini; do echo $i; cat $i | grep RNGSeed; done
+
+counter=16; for a in 9534 1234 4316 2516 3310; do mkdir -p Results/cc_dm/cc_dm_p1000_g100_s$a; mv BreastCancerNSGA2_cc_dm_V$counter/log/* Results/cc_dm/cc_dm_p1000_g100_s$a; counter=$((counter+1)); done
+
+
+counter=16; for a in 9534 1234 4316 2516 3310; do cp -rv BreastCancerNSGA2_cc_dm_V$counter/settings.ini Results/cc_dm/cc_dm_p1000_g100_s$a; counter=$((counter+1)); done
+
+
+*** dry run
+cd Results; for j in *_*; do cd $j; echo $j; for i in *; do echo $i; rsync -avh --dry-run $i/fold_*/best_* $i/settings.ini ../../sync/results/$j/$i/; done; cd ..; done; cd ..
+*** Actual run
+cd Results; for j in *_*; do cd $j; echo $j; for i in *; do echo $i; mkdir -p ../../sync/results/$j/$i/; rsync -avh $i/fold_*/best_* $i/settings.ini ../../sync/results/$j/$i/; done; cd ..; done; cd ..
+
+
+
+
+
+
+
+
+for i in BreastCancerNSGA2_cc_cm_V*/settings.ini; do echo $i; cat $i | grep RNGSeed; done
+
+counter=16; for a in 9534 1234 4316 2516 3310; do mkdir -p Results/cc_cm/cc_cm_p1000_g100_s$a; mv BreastCancerNSGA2_cc_cm_V$counter/log/* Results/cc_cm/cc_cm_p1000_g100_s$a; counter=$((counter+1)); done
+
+
+counter=16; for a in 9534 1234 4316 2516 3310; do cp -rv BreastCancerNSGA2_cc_cm_V$counter/settings.ini Results/cc_cm/cc_cm_p1000_g100_s$a; counter=$((counter+1)); done
+
+
+
+
+
+
+
+
+
+for i in BreastCancerNSGA2_mlo_cm_V*/settings.ini; do echo $i; cat $i | grep RNGSeed; done
+
+counter=21; for a in 9534 1234 4316 2516 3310; do mkdir -p Results/mlo_cm/mlo_cm_p1000_g100_s$a; mv BreastCancerNSGA2_mlo_cm_V$counter/log/* Results/mlo_cm/mlo_cm_p1000_g100_s$a; counter=$((counter+1)); done
+
+counter=21; for a in 9534 1234 4316 2516 3310; do cp -rv BreastCancerNSGA2_mlo_cm_V$counter/settings.ini Results/mlo_cm/mlo_cm_p1000_g100_s$a; counter=$((counter+1)); done
+
+
+
+
+
+for i in BreastCancerNSGA2_mlo_dm_V*/settings.ini; do echo $i; cat $i | grep RNGSeed; done
+
+counter=21; for a in 9534 1234 4316 2516 3310; do mkdir -p Results/mlo_dm/mlo_dm_p1000_g100_s$a; mv BreastCancerNSGA2_mlo_dm_V$counter/log/* Results/mlo_dm/mlo_dm_p1000_g100_s$a; counter=$((counter+1)); done
+
+counter=21; for a in 9534 1234 4316 2516 3310; do cp -rv BreastCancerNSGA2_mlo_dm_V$counter/settings.ini Results/mlo_dm/mlo_dm_p1000_g100_s$a; counter=$((counter+1)); done
+
+
+
+
+
+
+
+
+
+
+
+
+
+

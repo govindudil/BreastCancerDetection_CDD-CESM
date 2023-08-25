@@ -9,3 +9,15 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+/dataset/*/*/TrainingSampleData.txt
+/dataset/*/*/ValidationSampleData.txt
+/Grammatical_Evolution/obj/*
+/Grammatical_Evolution/log/*
+/Grammatical_Evolution/log.bak/*
+/Grammatical_Evolution/GEGCC
+/Grammatical_Evolution/tmp/cancerMiddle_*.cpp
+/Grammatical_Evolution/tmp/evaluate_population_*.cpp
+/Grammatical_Evolution/tmp/result_*
+/Grammatical_Evolution/tmp/*.out
+/Grammatical_Evolution/tmp/individual_*.cpp
+/Feature_Extraction/Dissertation
